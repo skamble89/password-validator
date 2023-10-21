@@ -18,8 +18,8 @@
 
   function _getStatusHtml(valid) {
     return valid
-      ? '<span class="status-valid">' + tick + "</span>"
-      : '<span class="status-invalid">' + cross + "</span>";
+      ? '<span class="password-validator-status-valid">' + tick + "</span>"
+      : '<span class="password-validator-status-invalid">' + cross + "</span>";
   }
 
   function _getStatusSummaryHtml(options, value) {

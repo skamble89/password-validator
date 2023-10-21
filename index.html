@@ -6,42 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Password validator demo</title>
     <script src="password-validator.js?1"></script>
-    <style>
-        .password-validator-summary {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-        }
-
-        .status-valid {
-            color: green;
-        }
-
-        .status-invalid {
-            color: red;
-        }
-
-        input[data-password-validator="true"][type=password]::-ms-reveal,
-        input[data-password-validator="true"][type=password]::-ms-  clear {
-            display: none;
-        }
-
-        .password-validator-eye {
-            cursor: pointer;
-        }
-
-        .password-validator-eye[data-opened] {
-            position: relative;
-        }
-
-        .password-validator-eye[data-opened]::before {
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            content: '|';
-            transform: translate(-50%, -50%) rotate(-60deg);
-        }
-    </style>
+    <link rel="stylesheet" href="password-validator.css">
 </head>
 
 <body>
