@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password validator demo</title>
+    <script src="password-validator.js"></script>
+</head>
+
+<body>
+    <input type="password" name="password" id="password">
+    <div id="status">
+
+    </div>
+    <script type="text/javascript">
+        passwordValidator({
+            el: '#password',
+            statusEl: '#status'
+        });
+    </script>
+</body>
+
+</html>
