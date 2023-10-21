@@ -6,12 +6,7 @@
    ```
    passwordValidator({
      el: '#password',
-     statusEl: '#status',
-     minlength: 8,
-     lower: 1,
-     upper: 1,
-     special: 1,
-     number: 1
+     statusEl: '#status'
    })
    ```
 
