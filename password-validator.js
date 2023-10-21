@@ -102,10 +102,7 @@
     return statusHtml.join("");
   }
 
-  win.passwordValidator = function (options) {
-    if (!options.el) throw "option required: el";
-    if (!options.statusEl) throw "option required: statusEl";
-
+  function _init(options) {
     var el = document.querySelector(options.el);
     var statusEl = document.querySelector(options.statusEl);
 
@@ -120,7 +117,29 @@
       100
     );
 
+    var eyeEl = document.createElement("i");
+    eyeEl.classList.add("password-validator-eye");
+    eyeEl.innerText = eye;
+
+    eyeEl.addEventListener("click", function (e) {
+      e.target.toggleAttribute("data-opened");
+
+      if (e.target.hasAttribute("data-opened")) {
+        el.type = "text";
+      } else {
+        el.type = "password";
+      }
+    });
+
     el.setAttribute(attr, "true");
+    el.after(eyeEl);
     statusEl.innerHTML = _getStatusSummaryHtml(options, "");
+  }
+
+  win.passwordValidator = function (options) {
+    if (!options.el) throw "option required: el";
+    if (!options.statusEl) throw "option required: statusEl";
+
+    _init(options);
   };
 })(window);
