@@ -2,6 +2,7 @@
   var attr = "data-password-validator";
   var tick = "✓";
   var cross = "⨯";
+  var eye = "👁";
 
   function _debounce(func, timeout) {
     let timer;

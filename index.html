@@ -6,13 +6,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Password validator demo</title>
     <script src="password-validator.js"></script>
+    <style>
+        .password-validator-summary {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .status-valid {
+            color: green;
+        }
+
+        .status-invalid {
+            color: red;
+        }
+    </style>
 </head>
 
 <body>
     <input type="password" name="password" id="password">
-    <div id="status">
-
-    </div>
+    <div id="status"></div>
     <script type="text/javascript">
         passwordValidator({
             el: '#password',
