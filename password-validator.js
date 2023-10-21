@@ -117,7 +117,10 @@
       100
     );
 
-    if (options.hasAttribute("disableEye") && !options.disableEye) {
+    if (
+      !options.hasOwnProperty("allowEye") ||
+      (options.hasOwnProperty("allowEye") && options.allowEye)
+    ) {
       var eyeEl = document.createElement("i");
       eyeEl.classList.add("password-validator-eye");
       eyeEl.innerText = eye;
