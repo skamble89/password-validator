@@ -22,3 +22,4 @@
 - special (optional, default: 1): minimum number of special characters
 - number (optional, default: 1): minimum number of numbers
 - minlength (optional, default: 8): minimum length of password
+- disableEye (optional, default: false): Set this to true if eye feature needs to be disabled

@@ -117,22 +117,24 @@
       100
     );
 
-    var eyeEl = document.createElement("i");
-    eyeEl.classList.add("password-validator-eye");
-    eyeEl.innerText = eye;
+    if (options.hasAttribute("disableEye") && !options.disableEye) {
+      var eyeEl = document.createElement("i");
+      eyeEl.classList.add("password-validator-eye");
+      eyeEl.innerText = eye;
 
-    eyeEl.addEventListener("click", function (e) {
-      e.target.toggleAttribute("data-opened");
+      eyeEl.addEventListener("click", function (e) {
+        e.target.toggleAttribute("data-opened");
 
-      if (e.target.hasAttribute("data-opened")) {
-        el.type = "text";
-      } else {
-        el.type = "password";
-      }
-    });
+        if (e.target.hasAttribute("data-opened")) {
+          el.type = "text";
+        } else {
+          el.type = "password";
+        }
+      });
+      el.after(eyeEl);
+    }
 
     el.setAttribute(attr, "true");
-    el.after(eyeEl);
     statusEl.innerHTML = _getStatusSummaryHtml(options, "");
   }
 
