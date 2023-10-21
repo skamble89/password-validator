@@ -1,26 +1,32 @@
 (function (win) {
-  /*
-  {
-    el: '#password', //selector of password field,
-    statusEl: '#status', //selector of element where validation status will be displayed,
-    lowercase: 2, //minimum number of lowercase characters
-    uppercase: 2, //minimum number of uppercase characters
-    special: 2, //minimum number of special characters
-    number: 2, //minimum number of numbers
-    minlength: 8 //minimum length of password
-  }
-  */
-
   var attr = "data-password-validator";
   var tick = "✓";
   var cross = "⨯";
 
-  function _getStatusHtml(options, value) {
-    var lower = options.lower || 1;
-    var upper = options.upper || 1;
-    var special = options.special || 1;
-    var number = options.number || 1;
-    var minlength = options.minlength || 8;
+  function _debounce(func, timeout) {
+    let timer;
+    return function () {
+      clearTimeout(timer);
+      var args = arguments;
+      var context = this;
+      timer = setTimeout(function () {
+        func.apply(context, args);
+      }, timeout);
+    };
+  }
+
+  function _getStatusHtml(valid) {
+    return valid
+      ? '<span class="status-valid">' + tick + "</span>"
+      : '<span class="status-invalid">' + cross + "</span>";
+  }
+
+  function _getStatusSummaryHtml(options, value) {
+    var lower = options.hasOwnProperty("lower") ? options.lower : 1;
+    var upper = options.hasOwnProperty("upper") ? options.upper : 1;
+    var special = options.hasOwnProperty("special") ? options.special : 1;
+    var number = options.hasOwnProperty("number") ? options.number : 1;
+    var minlength = options.hasOwnProperty("minlength") ? options.minlength : 8;
 
     var length = value.length;
     var nLower = 0;
@@ -42,10 +48,10 @@
       }
     }
 
-    statusHtml.push("<ul>");
+    statusHtml.push('<ul class="password-validator-summary">');
     statusHtml.push(
       "<li>" +
-        (length < minlength ? cross : tick) +
+        _getStatusHtml(length >= minlength) +
         " Minimum " +
         minlength +
         " characters required" +
@@ -54,7 +60,7 @@
     if (lower > 0) {
       statusHtml.push(
         "<li>" +
-          (nLower < lower ? cross : tick) +
+          _getStatusHtml(nLower >= lower) +
           " Minimum " +
           lower +
           " lowercase characters required" +
@@ -64,7 +70,7 @@
     if (upper > 0) {
       statusHtml.push(
         "<li>" +
-          (nUpper < upper ? cross : tick) +
+          _getStatusHtml(nUpper >= upper) +
           " Minimum " +
           upper +
           " uppercase characters required" +
@@ -74,7 +80,7 @@
     if (special > 0) {
       statusHtml.push(
         "<li>" +
-          (nSpecial < special ? cross : tick) +
+          _getStatusHtml(nSpecial >= special) +
           " Minimum " +
           special +
           " special characters required" +
@@ -84,7 +90,7 @@
     if (number > 0) {
       statusHtml.push(
         "<li>" +
-          (nNumber < number ? cross : tick) +
+          _getStatusHtml(nNumber >= number) +
           " Minimum " +
           number +
           " number characters required" +
@@ -96,17 +102,24 @@
   }
 
   win.passwordValidator = function (options) {
+    if (!options.el) throw "option required: el";
+    if (!options.statusEl) throw "option required: statusEl";
+
     var el = document.querySelector(options.el);
     var statusEl = document.querySelector(options.statusEl);
 
     if (el.hasAttribute(attr)) return;
 
-    el.addEventListener("input", function (e) {
-      var value = e.target.value;
-      statusEl.innerHTML = _getStatusHtml(options, value);
-    });
+    el.addEventListener(
+      "input",
+      _debounce(function (e) {
+        var value = e.target.value;
+        statusEl.innerHTML = _getStatusSummaryHtml(options, value);
+      }),
+      100
+    );
 
     el.setAttribute(attr, "true");
-    statusEl.innerHTML = _getStatusHtml(options, "");
+    statusEl.innerHTML = _getStatusSummaryHtml(options, "");
   };
 })(window);

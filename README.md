@@ -1,7 +1,10 @@
 # How to use?
 
 1. Include the javascript file on your page
-  `<script src="password-validator.js"></script>`
+  ```
+  <script src="password-validator.js"></script>
+  ```
+  
 2. Initialize the passwordValidator
    ```
    passwordValidator({
